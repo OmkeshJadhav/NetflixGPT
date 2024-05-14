@@ -2,6 +2,11 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { backgroundImage } from "../utils/constants";
 import checkValidData from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Signin = () => {
   const [signInForm, setSignInForm] = useState(true);
@@ -25,9 +30,39 @@ const Signin = () => {
     if (errMessage) return; // if error message is there then don't go ahead with sign in/up jsut return/terminate.
 
     if (!signInForm) {
-      // sign up logic
+      // Sign Up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed Up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + " " + errorMessage);
+        });
     } else {
       // sign in logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + " " + errorMessage);
+        });
     }
   };
 
