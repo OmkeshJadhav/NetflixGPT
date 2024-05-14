@@ -1,10 +1,10 @@
 # Netflix-GPT
 
-# Configuration
+## Configuration
 - Install Create-react-app
 - Install TailwindCSS
 
-# Features
+## Features
 - Home (Not loggedin)
     - SignIn / SignUp Page
         - Sign In/Up header
