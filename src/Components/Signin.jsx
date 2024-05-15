@@ -1,17 +1,23 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
 import { backgroundImage } from "../utils/constants";
 import checkValidData from "../utils/validate";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../data/userSlice";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "../utils/firebase";
-
 const Signin = () => {
   const [signInForm, setSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
@@ -27,7 +33,7 @@ const Signin = () => {
 
     setErrorMessage(errMessage);
 
-    if (errMessage) return; // if error message is there then don't go ahead with sign in/up jsut return/terminate.
+    if (errMessage) return; // if error message is there then don't go ahead with sign in/up just return/terminate.
 
     if (!signInForm) {
       // Sign Up logic
@@ -39,7 +45,24 @@ const Signin = () => {
         .then((userCredential) => {
           // Signed Up
           const user = userCredential.user;
-          console.log(user);
+          updateProfile(user, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/Browse");
+            })
+            .catch((error) => {
+              setErrorMessage(error.errMessage);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -56,7 +79,8 @@ const Signin = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          navigate("/Browse");
+          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -80,14 +104,15 @@ const Signin = () => {
       </div>
       <div className=" w-3/12 relative mx-auto my-28 pr-4 bg-black bg-opacity-80 rounded-lg">
         <form
-          className="text-white p-8 pb-12"
           onSubmit={(e) => e.preventDefault()}
+          className="text-white p-8 pb-12"
         >
           <h1 className="font-bold text-3xl my-3">
             {signInForm ? "Sign In" : "Sign Up"}
           </h1>
           {!signInForm && (
             <input
+              ref={name}
               type="text"
               placeholder="Full Name"
               className="p-3 m-2 my-5 border border-gray-400 rounded-md w-full bg-black bg-opacity-10 required:"

@@ -16,6 +16,10 @@
     - Form Validation using RegEx
     - Firebase setup
     - Deploying app to production
+    - Authentication using firebase
+    - Setup Redux store with userSlice
+    - Implemented Signout
+    - Updated Name and Profile : Update Profile API from firebase
     
 - Browse Page (Only comes after authentication)
     - Header
