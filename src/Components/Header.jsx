@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { netflixLogo, userIcon } from "../utils/constants";
 import { useState } from "react";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import { removeUser } from "../data/userSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../data/userSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -22,15 +25,29 @@ const Header = () => {
 
   const handleSignout = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/");
-        // dispatch(removeUser(userName));
-      })
+      .then(() => {})
       .catch((error) => {
         navigate("/error");
         <p>{error}</p>;
       });
   };
+
+  useEffect(() => {
+    return () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const { uid, email, displayName } = user;
+          dispatch(
+            addUser({ uid: uid, email: email, displayName: displayName })
+          );
+          navigate("/Browse");
+        } else {
+          dispatch(removeUser()); // removeUser is blank as no action
+          navigate("/");
+        }
+      });
+    };
+  }, []);
 
   return (
     <div className="w-full bg-gradient-to-b from-black absolute flex justify-between">
