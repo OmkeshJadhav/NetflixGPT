@@ -20,6 +20,10 @@
     - Setup Redux store with userSlice
     - Implemented Signout
     - Updated Name and Profile : Update Profile API from firebase
+    - BugFix : IF user is not loggedin redirect to login/browse page and vice-versa.
+    - Unsubscribed to onAuthStateChanged callback 
+    - Registered for TMDB API + token and key
+    - Configured and Made API call for Now Playing Movie list API
     
 - Browse Page (Only comes after authentication)
     - Header
