@@ -4,8 +4,6 @@ import { useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { removeUser } from "../data/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../data/userSlice";
 
@@ -14,7 +12,6 @@ const Header = () => {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -33,20 +30,18 @@ const Header = () => {
   };
 
   useEffect(() => {
-    return () => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const { uid, email, displayName } = user;
-          dispatch(
-            addUser({ uid: uid, email: email, displayName: displayName })
-          );
-          navigate("/Browse");
-        } else {
-          dispatch(removeUser()); // removeUser is blank as no action
-          navigate("/");
-        }
-      });
-    };
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        navigate("/Browse");
+      } else {
+        dispatch(removeUser()); // removeUser is blank as no action
+        navigate("/");
+      }
+    });
+    // unsubscribe when component unmounts
+    return () => unsubscribe();
   }, []);
 
   return (
