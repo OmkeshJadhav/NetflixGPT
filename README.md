@@ -24,6 +24,20 @@
     - Unsubscribed to onAuthStateChanged callback 
     - Registered for TMDB API + token and key
     - Configured and Made API call for Now Playing Movie list API
+    - Custom Hook for now playing movies
+    - Updated store with movie data - movieSlice
+    - Planning for main and secondary container
+    - fetched data for trailer video
+    - Update store with trailer video data
+    - embedded youtube video and made it autoplay and mute
+    - Added tailwind classes to make main container awesome
+    - Created secondary container
+    - fetched data for movie lists
+    - Created movieCards
+    - Used IMAGE_CDN_URL to get image for movie card
+    - created useNowPlayingMovies hook and made it dynamic
+    - Added CSS to movie list and card
+    - created usePopularMovies custom hook to update movie list
     
 - Browse Page (Only comes after authentication)
     - Header
