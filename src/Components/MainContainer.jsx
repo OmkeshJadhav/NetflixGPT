@@ -8,7 +8,7 @@ const MainContainer = () => {
 
   if (!movies || movies.length === 0) return null; // If nowPlayingMovies has no movie then return ---> Early return Saves the code from failing
 
-  const mainMovie = movies[0];
+  const mainMovie = movies[17];
   // console.log(mainMovie);
 
   if (!mainMovie) return null;
