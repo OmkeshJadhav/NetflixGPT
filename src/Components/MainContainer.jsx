@@ -8,7 +8,7 @@ const MainContainer = () => {
 
   if (!movies || movies.length === 0) return null; // If nowPlayingMovies has no movie then return ---> Early return Saves the code from failing
 
-  const mainMovie = movies[17];
+  const mainMovie = movies[0];
   // console.log(mainMovie);
 
   if (!mainMovie) return null;
@@ -16,7 +16,7 @@ const MainContainer = () => {
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div className="pt-[30%] md:pt-0">
+    <div className="pt-[35%] sm:pt-[20%] md:pt-0 bg-black sm:bg-black">
       <VideoTitle title={original_title} overview={overview} />
       <VideoBackground movieId={id} />
     </div>
