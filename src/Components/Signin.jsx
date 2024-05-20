@@ -141,6 +141,10 @@ const Signin = () => {
               ? "New to Netflix? Sign Up Now"
               : "Already a User ? Sign In Now"}
           </p>
+          <div className="mt-4 text-center">
+            <p>Dummy Login : User001@gmail.com</p>
+            <p>Password : User@001</p>
+          </div>
         </form>
       </div>
     </div>
