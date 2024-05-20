@@ -5,7 +5,7 @@ import GptSearchBar from "./GptSearchBar";
 const GptSearch = () => {
   return (
     <div>
-      <div className="absolute -z-10 bg-gradient-to-b from-black ">
+      <div className="fixed -z-10">
         <img src={backgroundImage} alt="" className="" />
       </div>
       <GptSearchBar />
