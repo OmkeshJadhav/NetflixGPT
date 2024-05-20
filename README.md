@@ -38,6 +38,9 @@
     - created useNowPlayingMovies hook and made it dynamic
     - Added CSS to movie list and card
     - created usePopularMovies custom hook to update movie list
+    - GptSearch Page, GptSearchBar, GptSearch Button with toggle feature, g…
+…ptSlice and addition to store
+
     
 - Browse Page (Only comes after authentication)
     - Header

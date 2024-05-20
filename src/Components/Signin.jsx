@@ -95,10 +95,10 @@ const Signin = () => {
         <img
           src={backgroundImage}
           alt="background"
-          className="absolute h-screen w-screen"
+          className="absolute h-screen w-screen object-cover"
         />
       </div>
-      <div className=" w-3/12 relative mx-auto my-28 pr-4 bg-black bg-opacity-80 rounded-lg">
+      <div className="w-3/4 sm:w-1/2 md:w-3/12 relative mx-auto my-24 md:my-28 pr-4 bg-black bg-opacity-80 rounded-lg">
         <form
           onSubmit={(e) => e.preventDefault()}
           className="text-white p-8 pb-12"

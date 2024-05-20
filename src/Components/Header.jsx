@@ -22,6 +22,8 @@ const Header = () => {
     dispatch(toggleGptSearchView());
   };
 
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+
   const handleSignout = () => {
     signOut(auth)
       .then(() => {})
@@ -47,23 +49,27 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="w-full bg-gradient-to-b from-black absolute flex justify-between z-10">
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black flex flex-col md:flex-row justify-between z-10">
       <div>
-        <img src={netflixLogo} alt="netflixLogo" className="w-52 p-4" />
+        <img
+          src={netflixLogo}
+          alt="netflixLogo"
+          className="w-52 p-4 mx-auto md:mx-0"
+        />
       </div>
 
       {user && (
-        <>
-          <div className="mt-5">
+        <div className="flex justify-evenly md:justify-evenly">
+          <div className="sm:mt-0 md:mt-5 mx-auto py-2 ">
             <button
-              className="bg-red-600 p-2 text-white rounded-md"
+              className="bg-red-600 p-2 text-white rounded-md font-bold"
               onClick={handleGptSearchClick}
             >
-              🔍 GPT Search
+              {showGptSearch ? "Homepage" : "🔍 GPT Search"}
             </button>
           </div>
           <div>
-            <div className="flex p-4">
+            <div className="flex md:p-4">
               <img
                 id="dropdownDefaultButton"
                 src={userIcon}
@@ -81,7 +87,7 @@ const Header = () => {
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
