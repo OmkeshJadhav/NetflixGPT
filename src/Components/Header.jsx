@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../data/userSlice";
 import { toggleGptSearchView } from "../data/gptSlice";
+import logo2 from "../assets/logo2.png";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -51,11 +52,7 @@ const Header = () => {
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black flex flex-col md:flex-row justify-between z-10">
       <div>
-        <img
-          src={netflixLogo}
-          alt="netflixLogo"
-          className="w-52 p-4 mx-auto md:mx-0"
-        />
+        <img src={logo2} alt="logo" className="w-36 p-2 mx-auto md:mx-0" />
       </div>
 
       {user && (
